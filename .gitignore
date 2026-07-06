@@ -11,9 +11,8 @@ __pycache__/
 .venv/
 venv/
 
-# Node
+# Node — keep dist for Hostinger deployment
 node_modules/
-frontend/web/dist/
 frontend/admin/dist/
 
 # OS
