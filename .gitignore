@@ -1,0 +1,32 @@
+# Environment files (NEVER commit these)
+.env
+.env.local
+.env.production
+deploy/.env.prod
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Node
+node_modules/
+frontend/web/dist/
+frontend/admin/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes (local only)
+postgres_data/
+media/
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Logs
+*.log

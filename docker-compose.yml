@@ -1,0 +1,63 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: primecrop_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: primecrop_db
+      POSTGRES_USER: primecrop
+      POSTGRES_PASSWORD: primecrop_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U primecrop -d primecrop_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: primecrop_backend
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: primecrop
+      DB_PASS: primecrop_pass
+      DB_NAME: primecrop_db
+      SECRET_KEY: ${SECRET_KEY:-primecrop-super-secret-change-in-production}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@theprimecrop.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-PrimeCrop@Admin2026!}
+    ports:
+      - "8000:8000"
+    volumes:
+      - media_data:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build: ./frontend/web
+    container_name: primecrop_web
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  admin:
+    build: ./frontend/admin
+    container_name: primecrop_admin
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  media_data:

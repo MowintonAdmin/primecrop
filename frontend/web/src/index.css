@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-charcoal font-sans;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-forest-800 text-white px-6 py-3 rounded-lg font-semibold
+           hover:bg-forest-700 active:bg-forest-900 transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-forest-800 text-forest-800 px-6 py-3 rounded-lg font-semibold
+           hover:bg-forest-800 hover:text-white transition-colors duration-200;
+  }
+
+  .btn-gold {
+    @apply bg-gold-500 text-white px-6 py-3 rounded-lg font-semibold
+           hover:bg-gold-600 active:bg-gold-700 transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input-field {
+    @apply w-full border border-gray-300 rounded-lg px-4 py-3 text-charcoal
+           focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent
+           placeholder:text-gray-400 bg-white transition;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300;
+  }
+
+  .section-title {
+    @apply font-serif text-3xl md:text-4xl font-bold text-charcoal;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-green {
+    @apply badge bg-forest-100 text-forest-800;
+  }
+
+  .badge-gold {
+    @apply badge bg-gold-100 text-gold-800;
+  }
+
+  .badge-red {
+    @apply badge bg-red-100 text-red-800;
+  }
+}
