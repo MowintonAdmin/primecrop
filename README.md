@@ -1,7 +1,7 @@
 # PrimeCrop — Premium Mushroom E-Commerce Platform
 
 **Malaysia's top-tier premium mushroom brand.**  
-Domain: [theprimecrop.com](https://theprimecrop.com)
+**Domain: [theprimecrop.com](https://theprimecrop.com) **
 
 ---
 
