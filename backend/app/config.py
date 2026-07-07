@@ -25,6 +25,9 @@ class Settings(BaseSettings):
     ADMIN_PASSWORD: str = os.getenv("ADMIN_PASSWORD", "PrimeCrop@Admin2026!")
     ADMIN_NAME: str = "PrimeCrop Admin"
 
+    # Google OAuth
+    GOOGLE_CLIENT_ID: str = ""
+
     CORS_ORIGINS: list[str] = [
         "http://localhost:3000",
         "http://localhost:5173",

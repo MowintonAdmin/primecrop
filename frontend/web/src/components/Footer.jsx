@@ -9,9 +9,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="mb-4">
-              <div className="bg-white rounded-2xl inline-block">
-                <img src="/logo.png" alt="PrimeCrop" className="h-20 w-auto" />
-              </div>
+              <img src="/logo.png" alt="PrimeCrop" className="h-20 w-auto brightness-0 invert" />
             </div>
             <p className="text-sm leading-relaxed text-gray-400 mb-5">
               Nature's finest mushrooms, cultivated to perfection in Malaysia. Premium quality for discerning health enthusiasts.

@@ -26,9 +26,7 @@ export default function Sidebar({ onClose }) {
   return (
     <div className="flex flex-col h-full bg-forest-950 text-white w-64">
       <div className="flex items-center justify-between h-16 px-4 border-b border-white/10">
-        <div className="bg-white rounded-xl">
-          <img src="/logo.png" alt="PrimeCrop" className="h-11 w-auto" />
-        </div>
+          <img src="/logo.png" alt="PrimeCrop" className="h-10 w-auto brightness-0 invert" />
         {onClose && (
           <button onClick={onClose} className="lg:hidden text-gray-400 hover:text-white">
             <FiX size={18} />

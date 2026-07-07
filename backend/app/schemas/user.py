@@ -15,6 +15,7 @@ class UserBase(BaseModel):
 
 class UserResponse(UserBase):
     id: UUID
+    profile_photo_url: str | None = None
     is_active: bool
     is_admin: bool
     created_at: datetime

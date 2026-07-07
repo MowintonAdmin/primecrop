@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { FiShoppingCart, FiUser, FiMenu, FiX, FiSearch } from 'react-icons/fi'
+import { FiShoppingCart, FiUser, FiMenu, FiX, FiSearch, FiHeart } from 'react-icons/fi'
 import { useAuthStore } from '../store/authStore'
 import { useCartStore } from '../store/cartStore'
 import toast from 'react-hot-toast'
@@ -42,33 +42,21 @@ export default function Navbar() {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/products', label: 'Shop' },
+    { to: '/learn', label: 'Learn' },
   ]
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-sm'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo - left */}
           <Link to="/" className="flex items-center shrink-0">
             <img src="/logo.png" alt="PrimeCrop" className="h-14 w-auto" />
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop: Search, Nav Links, Actions - all right aligned */}
           <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className="text-sm font-medium text-gray-700 hover:text-forest-800 transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Search + Actions */}
-          <div className="flex items-center gap-3">
-            <form onSubmit={handleSearch} className="hidden sm:flex items-center">
+            <form onSubmit={handleSearch}>
               <div className="relative">
                 <input
                   type="text"
@@ -83,6 +71,16 @@ export default function Navbar() {
               </div>
             </form>
 
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="text-sm font-medium text-gray-700 hover:text-forest-800 transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+
             <Link to="/cart" className="relative p-2 text-gray-700 hover:text-forest-800 transition-colors">
               <FiShoppingCart size={20} />
               {item_count > 0 && (
@@ -95,9 +93,11 @@ export default function Navbar() {
             {token ? (
               <div className="relative group">
                 <button className="flex items-center gap-1 p-2 text-gray-700 hover:text-forest-800 transition-colors">
-                  <FiUser size={20} />
-                  <span className="hidden sm:block text-sm font-medium truncate max-w-[80px]">
-                    {user?.full_name?.split(' ')[0]}
+                  <div className="w-7 h-7 bg-forest-800 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">{user?.full_name?.charAt(0) || user?.email?.charAt(0) || 'U'}</span>
+                  </div>
+                  <span className="text-sm font-medium truncate max-w-[80px]">
+                    {user?.full_name?.split(' ')[0] || 'Account'}
                   </span>
                 </button>
                 <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
@@ -117,10 +117,21 @@ export default function Navbar() {
                 Sign In
               </Link>
             )}
+          </div>
 
+          {/* Mobile: hamburger */}
+          <div className="flex md:hidden items-center gap-2">
+            <Link to="/cart" className="relative p-2 text-gray-700">
+              <FiShoppingCart size={20} />
+              {item_count > 0 && (
+                <span className="absolute -top-1 -right-1 bg-gold-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                  {item_count > 9 ? '9+' : item_count}
+                </span>
+              )}
+            </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 text-gray-700"
+              className="p-2 text-gray-700"
             >
               {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
             </button>
@@ -153,6 +164,20 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          {token ? (
+            <>
+              <Link to="/dashboard" onClick={() => setIsOpen(false)} className="block py-2 text-gray-700 font-medium hover:text-forest-800">
+                My Account
+              </Link>
+              <button onClick={handleLogout} className="block w-full text-left py-2 text-red-600 font-medium">
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <Link to="/login" onClick={() => setIsOpen(false)} className="block py-2 text-forest-700 font-semibold">
+              Sign In
+            </Link>
+          )}
         </div>
       )}
     </nav>

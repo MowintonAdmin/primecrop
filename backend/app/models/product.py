@@ -32,6 +32,7 @@ class Product(Base):
     order_items = relationship("OrderItem", back_populates="product")
     cart_items = relationship("CartItem", back_populates="product", cascade="all, delete-orphan")
     reviews = relationship("Review", back_populates="product", cascade="all, delete-orphan")
+    wishlist_items = relationship("WishlistItem", back_populates="product", cascade="all, delete-orphan")
 
     @property
     def effective_price(self):

@@ -2,6 +2,10 @@ from pydantic import BaseModel, EmailStr, field_validator
 import re
 
 
+class GoogleAuthRequest(BaseModel):
+    id_token: str
+
+
 class RegisterRequest(BaseModel):
     email: EmailStr
     password: str
