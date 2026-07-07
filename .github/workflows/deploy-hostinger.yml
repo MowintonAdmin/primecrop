@@ -3,8 +3,6 @@ name: Deploy to Hostinger
 on:
   push:
     branches: [main]
-    paths:
-      - 'frontend/web/**'
   workflow_dispatch:
 
 jobs:
@@ -28,16 +26,10 @@ jobs:
           npm ci
           npm run build
 
-      - name: Prepare deploy
-        run: |
-          mkdir -p ../../deploy-build
-          cp -r dist/* ../../deploy-build/
-          cp dist/.nojekyll ../../deploy-build/ 2>/dev/null || true
-
       - name: Deploy to hostinger branch
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: deploy-build
-          publish_branch: hostinger
-          force_orphan: true
+          folder: frontend/web/dist
+          branch: hostinger
+          clean: true
+          single-commit: true
